@@ -12,7 +12,7 @@ function setup() {
 }
 
 function draw() {
-  background(200,10); // motion blur
+  background(200,50); // motion blur
   ellipse(xPos, yPos,100);
  
   //update the ball position
@@ -32,6 +32,5 @@ function draw() {
      ellipse(xPos,yPos, 300); //ellipse flash
      
   }
-  noStroke()
 }
   
