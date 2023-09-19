@@ -6,8 +6,8 @@ function setup() {
   xPos = width/2;
   yPos = height/2;
   
-  xDir = random(-3.0,3.0);
-  yDir = random(-3.0,3.0);
+  xDir = random(-1.0,5.0);
+  yDir = random(-1.0,5.0);
   
 }
 
