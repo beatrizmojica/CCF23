@@ -1,7 +1,7 @@
 let xPos, yPos;
 let xDir, yDir;
 
-function setup() {
+function setup() { 
   createCanvas(windowWidth, windowHeight);
   xPos = width/2;
   yPos = height/2;
