@@ -23,7 +23,7 @@ function draw() {
   xDir = xDir * -1;
     fill(random(255), random(255), random(255));
     background(random(255), random(255), random(255));
-    ellipse(xPos,yPos, 300); // ellipse
+    ellipse(xPos,yPos, 300); // ellipse flash
   }
    if(yPos >= height - 50 || yPos <= 50){
   yDir = yDir * -1;
