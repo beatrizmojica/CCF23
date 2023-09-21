@@ -1,0 +1,40 @@
+let x, y;
+let xPos, yPos;
+let xDir, yDir;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+ 
+  xPos = width/2;
+  yPos = height/2;
+  
+  xDir = 0;
+  yDir = -8;
+
+}
+
+function draw() {
+  background(200,100);
+  fill(100)
+  
+  //update the ball position
+  xPos += xDir;
+  yPos += yDir;
+  
+  if(xPos >= width - 50 || xPos <= 50){
+  xDir = xDir * -1;
+  ellipse(xPos, yPos,90, 140);
+  }
+  
+  ellipse(xPos, yPos, 100)
+  
+   if(yPos >= height - 50){
+  yDir = yDir * -1;
+    ellipse(xPos, yPos,140, 90);
+  }
+
+  yDir += 0.7;
+  
+  
+}
+  
