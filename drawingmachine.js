@@ -1,4 +1,16 @@
 
+// rules for sketching
+// click and drag your mouse to draw
+// 'e' key erases or restarts your drawing
+// Keys '1','2','3' change the strokeWeight
+// 1 being the thinnest, 3 being the boldest
+// 'r' key changes the stroke color to red
+// 'g' key changes the stroke color to green
+// 'b' key changes the stroke color to blue
+// 'B' key changes the stroke color to black (case sensitive)
+
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(220);
