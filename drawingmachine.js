@@ -9,7 +9,7 @@ function draw() {
   background(220); // press 'e' key to erase drawing
  }
  if ((keyIsPressed == true) && (key == '1')){
-  strokeWeight(1); // press '1' key to make strokeWeight 1
+  strokeWeight(2); // press '1' key to make strokeWeight 1
  }
  if ((keyIsPressed == true) && (key == '2')){
   strokeWeight(5); // press '2' key to make strokeWeight 5
