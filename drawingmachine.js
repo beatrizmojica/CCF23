@@ -10,13 +10,13 @@
 // 'B' key changes the stroke color to black (case sensitive)
 
 
-
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight); 
   background(220);
 }
 
 function draw() {
+
  if ((keyIsPressed == true) && (key == 'e')) {
   background(220); // press 'e' key to erase drawing
  }
@@ -45,4 +45,11 @@ function draw() {
 
 function mouseDragged() {
   line(pmouseX, pmouseY, mouseX, mouseY); //click and drag to draw
+
+}
+
+function mouseClicked() {
+  if (mouseClicked == LEFT);
+  fill(random(255), random(255), random(255));
+  ellipse(mouseX, mouseY, 30);
 }
