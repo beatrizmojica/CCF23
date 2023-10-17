@@ -78,14 +78,12 @@ class Ball {
     if(this.xpos >= width - this.diam/2 || this.xpos <= this.diam/2){
   this.xspeed = this.xspeed * -1;
     fill(random(255), random(255), random(255));
-    //background(random(255), random(255), random(255));
     ellipse(this.xpos, this.ypos, this.diam+100); // ellipse flash
   }
 
    if(this.ypos >= height - this.diam/2 || this.ypos <= this.diam/2){
   this.yspeed = this.yspeed * -1;
-     fill(random(255), random(255), random(255));
-     //background(random(255), random(255), random(255)); 
+     fill(random(255), random(255), random(255)); 
      ellipse(this.xpos,this.ypos, this.diam + 100); //ellipse flash
    }
   }
