@@ -69,13 +69,6 @@ class Ball {
     this.yspeed = random(3, 10);
   }
 
-  angry() {
-    push();
-    translate(this.xpos, this.ypos);
-    bezier(this.xpos-40, this.ypos-10, this.xpos-40, this.ypos-40, this.xpos+40, this.xpos-40, this.xpos+40, this.ypos-10);
-    pop();
-  }
-
   update(){
     this.xpos += this.xspeed
     this.ypos += this.yspeed
