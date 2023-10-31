@@ -1,3 +1,4 @@
+//link to site: https://beatrizmojica.github.io/CCF23/animation/
 
 let picker; // variable for the menu
 let sphere1, sphere2, sphere3;
