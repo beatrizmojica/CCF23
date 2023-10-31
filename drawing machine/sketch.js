@@ -1,3 +1,5 @@
+// link to site: https://beatrizmojica.github.io/CCF23/drawing%20machine/
+// read rules below!
 
 // rules for sketching
 // click and drag your mouse to draw
