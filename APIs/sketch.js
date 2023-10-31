@@ -11,6 +11,7 @@ let numStory = 1;
 let numSound = 15;
 let search;
 let b;
+let fs = false;
 
 function preload() {
   data1 = loadStrings(baseURL1 + numGenre);
@@ -33,14 +34,15 @@ function prep() {
 }
 
 function loaded(resp) {
+  fs = true;
   data3 = resp;
   console.log(data3);
   textSize(20);
   text("Here are the top " + data3.results.length + " results:", width/2+250, 90);
- for (let i = 0; i < numSound; i++){
+ /*for (let i = 0; i < numSound; i++){
    text(data3.results[i].name, width/2, i*30 + 125);
    console.log(data3.results[i].name);
-  }
+  }*/
 }
 
 function draw() {
@@ -68,9 +70,11 @@ function draw() {
    text(story, 30,10 * i + 450);
   }
 
+  if(fs == true){
  for (let i = 0; i < data3.results.length; i++){
     text(data3.results[i].name, width/2, i*30 + 125);
     console.log(data3.results[i].name);
  }
+}
 }
 
