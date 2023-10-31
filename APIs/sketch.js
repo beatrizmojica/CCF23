@@ -1,3 +1,5 @@
+// link to site: https://beatrizmojica.github.io/CCF23/APIs/
+
 let clientID = "&token=M3lSb3QIxs6S4z1txLfz";
 let baseURL1 = "https://binaryjazz.us/wp-json/genrenator/v1/genre/";
 let baseURL2 = "https://binaryjazz.us/wp-json/genrenator/v1/story/";
