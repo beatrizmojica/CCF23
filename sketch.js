@@ -1,106 +1,76 @@
-let viento, amanece, venado, album;
-let vientobut, amanecebut, venadobut, stopbut;
-let wavebut, spectrumbut;
+let clientID = "&token=M3lSb3QIxs6S4z1txLfz";
+let baseURL1 = "https://binaryjazz.us/wp-json/genrenator/v1/genre/";
+let baseURL2 = "https://binaryjazz.us/wp-json/genrenator/v1/story/";
+let baseURL3 = "https://freesound.org/apiv2/search/text/?token=EgnxZvx6yunBDrqHb0LrhpRqHqTby1OW1Ywynqml";
 
-function preload(){
-  //preload sounds + image
-  viento = loadSound('sounds/viento.mp3');
-  amanece = loadSound('sounds/amanece.mp3');
-  venado = loadSound('sounds/venado.mp3');
-  album = loadImage('sounds/CaifanesAlbum.png');
+
+let kind = "&filter=type:mp3";
+let data1, data2, data3;
+let numGenre = 1;
+let numStory = 1;
+let numSound = 15;
+let search;
+let b;
+
+function preload() {
+  data1 = loadStrings(baseURL1 + numGenre);
+  data2 = loadStrings(baseURL2 + numStory);
 }
 
-function setup(){
-  createCanvas(windowWidth,windowHeight);
-  fft = new p5.FFT();
-  viento.amp(0.2);
-  venado.amp(0.2);
-  amanece.amp(0.2);
-
-  textFont('Times New Roman');
-  //viento
-  vientobut = createButton('Viento');
-  vientobut.position(20, 70);
-
-  //amanece
-  amanecebut = createButton('Amanece');
-  amanecebut.position(20, 120);
-
-  //venado
-  venadobut = createButton('Perdí Mi Ojo de Venado');
-  venadobut.position(20, 170);
-
-  //pause
-  stopbut = createButton('⏸️');
-  stopbut.position(20, 220);
-
-// play song if button is pressed
-  vientobut.mousePressed(playViento);
-  amanecebut.mousePressed(playAmanece);
-  venadobut.mousePressed(playVenado);
-  stopbut.mousePressed(pauseSound);
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  console.log(data1 + "," + data2 + "," + data3);
+  search = createInput();
+  search.position(width/2, 75);
+  b = createButton("Search");
+  b.position(width/2+150, 75);
+  b.mousePressed(prep);
 }
 
-function draw(){
+function prep() {
+  let url = baseURL3 + "&query=" + search.value() + kind;
+  loadJSON(url, loaded);
+}
+
+function loaded(resp) {
+  data3 = resp;
+  console.log(data3);
+  textSize(20);
+  text("Here are the top " + data3.results.length + " results:", width/2+250, 90);
+ for (let i = 0; i < numSound; i++){
+   text(data3.results[i].name, width/2, i*30 + 125);
+   console.log(data3.results[i].name);
+  }
+}
+
+function draw() {
   background('lavender');
+  
+  let genres = data1[0];//.split(",");
+  let story = data2[0];
 
-   //my top 3 text
-   textSize(20);
-   textFont('Times New Roman');
-   fill('purple');
-   text("Beatriz's Top 3 from the Caifanes Album", width/2 - 170, 50);
-   text('tap a button to play!', 20, 20);
+  textSize(20);
+  textFont('Times New Roman');
+  text('Reload for a new genre', 30, 50);
+  text('and story. Then, use the search', 30, 75);
+  text('bar to search Freesound.org', 30, 100);
+  text('for unconventional project inspo!', 30, 125);
 
-   //black wave
-  let waveform = fft.waveform();
-  stroke(0);
-  noFill();
-  beginShape();
-  strokeWeight(2);
-  for (let i = 0; i < waveform.length; i++){
-    let x = map(i, 0, waveform.length, 0, width);
-    let y = map( waveform[i], -1, 1, 0, height);
-    vertex(x,y);
+  text('Your Genre:', 30, 250);
+  text('Your Story:', 30, 390);
+  text("Search keywords for related sounds!", width/2, 50);
+  
+  for (let i=0; i < numGenre; i++){
+  text(genres, 30,18 * i + 300)
   }
-  endShape();
 
-  image(album, width/2-250, height/2-275, 500, 500);
-
-
-  //purple spectrum
-  let spectrum = fft.analyze();
-  noStroke();
-  fill(201, 3, 251, 200);
-  for (let i = 0; i < spectrum.length; i++){
-    let x = map(i, 0, spectrum.length, 0, width);
-    let h = -height + map(spectrum[i], 0, 450, height, 0);
-    rect(x, height, width / spectrum.length, h )
+  for (let i=0; i < numStory; i++){
+   text(story, 30,10 * i + 450);
   }
+
+ for (let i = 0; i < data3.results.length; i++){
+    text(data3.results[i].name, width/2, i*30 + 125);
+    console.log(data3.results[i].name);
+ }
 }
 
-
-function playViento() {
-  console.log('vientooo');
-  viento.play(0, 1, 0.25, 0.0); 
-  playingVi = true
-}
-
-function playAmanece() {
-  console.log('amanece!');
-  amanece.play(0, 1, 0.25, 0.0);
-  playingAm = true;
-}
-
-function playVenado() {
-  console.log('perdi mi ojo');
-  venado.play(0, 1, 0.25, 0.0);
-  playingVe = true;
-}
-
-function pauseSound() {
-  if(viento.isPlaying() || amanece.isPlaying() || venado.isPlaying()) {
-    viento.pause();
-    amanece.pause();
-    venado.pause();
-  }
-}
