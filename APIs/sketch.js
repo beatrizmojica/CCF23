@@ -41,10 +41,6 @@ function loaded(resp) {
   console.log(data3);
   textSize(20);
   text("Here are the top " + data3.results.length + " results:", width/2+250, 90);
- /*for (let i = 0; i < numSound; i++){
-   text(data3.results[i].name, width/2, i*30 + 125);
-   console.log(data3.results[i].name);
-  }*/
 }
 
 function draw() {
