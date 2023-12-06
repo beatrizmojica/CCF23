@@ -15,9 +15,12 @@ THINGS WE NEED HELP WITH:
 - progress line map thingy
 - spinning record labels
 - how to connect function to slider
-
+- classes for spinning record
 */
 
+/* if(init = false){
+  set all paraam
+}*/
 
 
 //REGION STUFF:
@@ -31,18 +34,33 @@ THINGS WE NEED HELP WITH:
   let bigone;
 
   //variables for album cover images
+  //South America
   let soda, abuelos, enanitos;
+  //North America
+  let tate, nerPic, vMonet;
+  //Africa
+  let youssou, vivi, magicSys;
+  //Asia
+  let rapline, maher, skyResto;
+  //Europe
+  let sally, alicia, tayc;
 
-  //for rotating album cover and record
+
+  //for rotatlamentoing album cover and record
   let rotme = 0.0;
 
   //variables for song manipulation elements
   let reverb, decay, playback;
+  let amt; //amt of reverb
 
   //variables for sliders
   let reverbSl, decaySl, playbackSl;
 
-//MUSIC VARS:
+//MUSIC VARS
+
+  //total duration of the song
+  let sodaDuration = 0;
+  let cTime = 0; // current time
 
   //South America music variables
   let soda1,  sodabut;
@@ -88,6 +106,9 @@ THINGS WE NEED HELP WITH:
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  //total time in sec
+  sodaDuration = soda1.duration();
+
   //waveform
   fft = new p5.FFT();
   soda1.amp(0.2);
@@ -107,6 +128,8 @@ function setup() {
   vrille.amp(0.2);
 
   //reverb slider
+reverb = new p5.Reverb();
+reverb.process(soda1, 5, 1);
   reverbSl = createSlider(0, 100, 0);
   reverbSl.position(800, 175);
   reverbSl.style('transform', 'rotate(270deg)');
@@ -166,7 +189,7 @@ function setup() {
 
 //FUNCTIONS FOR SLIDERS:
 
-  function songReverb() {
+  /*function songReverb() {
     if(!reverbSl) {
     reverb = new p5.Reverb();
     reverb.process(soda1, 3, 2);
@@ -174,7 +197,7 @@ function setup() {
       reverb.stop(soda1, 3, 2);
     }
     
-  }
+  }*/ 
 
   /*function songDelay() {
     if(!__) {
@@ -194,7 +217,7 @@ function setup() {
     
   }*/
 
-//EXTRA BUTTONS?? missing restart button
+//pause button; to play again, click the song title again
 
   function pause() {
     soda1.pause();
@@ -259,7 +282,7 @@ function preload() {
   function saPlaylist() {
 
     // De Musica Ligera - Soda Stereo
-    sodabut = createButton("De Musica Ligera");
+    sodabut = createButton("De Música Ligera");
     sodabut.position(220, 300);
     sodabut.mousePressed(playSoda);
     
@@ -430,7 +453,7 @@ function preload() {
     } else {
       soda1.pause();
     }
-}
+  }
 
   //function to play lamento
   function playLam() {
@@ -544,7 +567,7 @@ function preload() {
     } else {
       smoke.pause();
     }
-}
+  }
 
   //function to play Nereyda
   function playNereyda(){
@@ -595,11 +618,12 @@ function draw() {
   stroke(0);
   tint(110);
   background(bigone);
-fill(225);
-rectMode(CENTER);
-rect(width/2, height/2, 1200, 600, 20);
+  fill(225);
+  rectMode(CENTER);
+  rect(width/2, height/2, 1200, 600, 20);
 
-let waveform = fft.waveform();
+  
+  let waveform = fft.waveform();
   noFill();
   beginShape();
   strokeWeight(2);
@@ -610,39 +634,64 @@ let waveform = fft.waveform();
   }
   endShape();
   
+  //image positions for each region
+  image(northam, 150, 100, 100, 100);
+  image(southam, 290, 100, 100, 100);
+  image(africa, 440, 100, 100, 100);
+  image(asia, 625, 100, 120, 100);
+  image(europe, 800, 100, 110, 110);
 
-image(northam, 150, 100, 100, 100);
-image(southam, 290, 100, 100, 100);
-image(africa, 440, 100, 100, 100);
-image(asia, 625, 100, 120, 100);
-image(europe, 800, 100, 110, 110);
+  amt = reverbSl.value()/100;
+  reverb.drywet(amt);
 
- //background progress line
- stroke(150,150); 
- strokeWeight(8);
- line(450, 550, 953, 550);
+  //progress line for current song
+  stroke(150, 150);
+  line(450, 550, 953, 550);
+    if (soda1.isPlaying()) {
+      // if the song is playing, 
+      // get the current time of song in secs
+      cTime = soda1.currentTime();
+      strokeWeight(8);
+      stroke(18);
+      // use lerp to figure out how long to draw the line
+      let pct = lerp(450, 550, cTime / sodaDuration);
+      line(450, 550, pct, 550);
+      // put a lil dot at the end 
+      strokeWeight(10);
+      point(pct, 550);
+      strokeWeight(1);
+      //time passed in song in seconds with zero in front
+      //text(frontZero(soda1.currentTime()), 450, 575);
+      //time left in song
+      //text("-" + frontZero(soda1.currentTime()-sodaDuration), 875, 575)
+    }
 
-//moving progress line
-let elapsed = soda1.duration();
-let lineEnd = map(elapsed, 0, 0, 0, 6);
-strokeWeight(8);
-stroke(190,150);
-line(450, 550, 953 + lineEnd, 550);
+  noTint();
 
-noTint();
-
-if(playingSoda == true){
-    push();
-        imageMode(CENTER);
-        translate(280, 480);
-        // rotate the origin
-        rotate(-rotme * 4.0);
-        rotme += .01;
-        image(soda, 0, 0, 250, 250);
-        // reset to the previous origin
-        pop(); 
+  //rotating album cover record player thingy
+  if(playingSoda == true){
+      push();
+          imageMode(CENTER);
+          translate(280, 480);
+          // rotate the origin
+          rotate(-rotme * 4.0);
+          rotme += .01;
+          image(soda, 0, 0, 250, 250);
+          // reset to the previous origin
+          pop(); 
   }
 }
+
+
+  //adding the zero in front if number is below 9 for song duration
+ /* function frontZero(num) {
+    if (num <= 9) {
+      return "0" + num;
+    } else {
+      return num;
+    }
+  }
+*/
 
 /*  if(playingLamento == true){
     push();
@@ -653,6 +702,7 @@ if(playingSoda == true){
         rotme += .01;
         image(enanitos, 0, 0, 1250, 700);
         // reset to the previous origin
+        soda.hide();
         pop();
   }  */
 
@@ -661,25 +711,3 @@ if(playingSoda == true){
 // we can if audio stops playing, rotme = 0.0
 //if statements to sync audio and the album cover that pops us
 // if ___.isPlaying, image(blah blah blah)
-
-/*
-
-//song progess line
-
- //background progress line
-  stroke(150,150); 
-  strokeWeight(8);
-  line(50, 380, 350, 380);
-
-  //moving progress line
-  let elapsed = ((hr * 60) + min);
-  let lineEnd = map(elapsed, 0, 1440, 0, 300);
-  strokeWeight(8);
-  stroke(190,150);
-  line(50, 380, 50 + lineEnd, 380);
-*/
-
-
-//song progess line
-
- //background progress line
