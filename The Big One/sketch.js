@@ -1,8 +1,5 @@
 /*TO DO:
-
-- hide other region song buttons (using the p5 
-  hide() variable) [something weird is going on]
-- fix the progress line and waveform
+- fix the time elapsed/time left to make them integers instead of whatever is going on there
 - have album cover icons pop up with each song [working on it]
 - do restart button
 - sliders and buttons for song manipulation
@@ -11,16 +8,11 @@
     p5.filter buttons (lowpass, highpass, band pass)
 
 THINGS WE NEED HELP WITH (Office Hrs):
-- .hide(); issue
-- spinning record labels--the class and objects
+- spinning record labels--the class and objects; 
 - how to connect delay to slider
 - why the sliders are acting up 
-- download remix functions
+- download remix functions; working question mark 
 */
-
-/* if(init = false){
-  set all paraam
-}*/
 
 //testing something - DIDNT WERKKKKKKK
 let sodarec, lamentorec;
@@ -97,7 +89,7 @@ let playingDdaeng = false;
 
 //Africa music variables
 let beCareful, beCarefulbut;
-let playingBeCarefule = false;
+let playingBeCareful = false;
 let noStress, noStressbut;
 let playingNoStress = false;
 let gaou, gaoubut;
@@ -111,7 +103,9 @@ let playingNyPense = false;
 let vrille, vrillebut;
 let playingVrille = false;
 
-let recLabel; // this is the object that will hold the labels
+let spinRec; // this is the object that will hold the spinning record labels
+let allSongs; // object to hold all songs
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -132,7 +126,7 @@ function setup() {
   sodaDuration = soda1.duration();
 
   //objects for spinning record class
-  recLabel = new Record();
+  spinRec = new Record();
 
   /*
   //objects for spinning record class
@@ -247,6 +241,8 @@ function setup() {
   }*/
 
 
+
+  // do we need a function for each individual song? confused......
 function downloadRemix() {
   if (recordDownload.mousePressed) {
     recordRemix.record(soda1)
@@ -358,7 +354,7 @@ function saPlaylist() {
   milbut.position(750, 300);
   milbut.mousePressed(playMil);
 
-  /*beCarefulbut.hide();
+  beCarefulbut.hide();
   noStressbut.hide();
   gaoubut.hide();
   exesbut.hide();
@@ -369,7 +365,7 @@ function saPlaylist() {
   ddaengbut.hide();
   bettyBoopbut.hide();
   nyPensebut.hide();
-  vrillebut.hide();*/
+  vrillebut.hide();
 
 }
 
@@ -391,7 +387,7 @@ function naPlaylist() {
   nerbut.position(750, 300);
   nerbut.mousePressed(playNereyda);
 
-  /*sodabut.hide();
+  sodabut.hide();
   lamentobut.hide();
   milbut.hide();
   beCarefulbut.hide();
@@ -402,7 +398,7 @@ function naPlaylist() {
   ddaengbut.hide();
   bettyBoopbut.hide();
   nyPensebut.hide();
-  vrillebut.hide();*/
+  vrillebut.hide();
 
 }
 
@@ -423,7 +419,7 @@ function africaPlaylist() {
   gaoubut.position(750, 300);
   gaoubut.mousePressed(playgaou);
 
-  /*sodabut.hide();
+  sodabut.hide();
    lamentobut.hide();
    milbut.hide();
    exesbut.hide();
@@ -434,7 +430,7 @@ function africaPlaylist() {
    ddaengbut.hide();
    bettyBoopbut.hide();
    nyPensebut.hide();
-   vrillebut.hide();*/
+   vrillebut.hide();
 
 }
 
@@ -455,7 +451,7 @@ function asiaPlaylist() {
   ddaengbut.position(750, 300);
   ddaengbut.mousePressed(playddaeng);
 
-  /*sodabut.hide();
+  sodabut.hide();
   lamentobut.hide();
   milbut.hide();
   beCarefulbut.hide();
@@ -466,7 +462,7 @@ function asiaPlaylist() {
   smokebut.hide();
   bettyBoopbut.hide();
   nyPensebut.hide();
-  vrillebut.hide();*/
+  vrillebut.hide();
 
 }
 
@@ -504,8 +500,10 @@ function euPlaylist() {
 //FUNCTIONS TO PLAY SONGS:
 
 //SOUTH AMERICA SONGS
+
+      //commented this out because we are trying to set up class, testing soda first
 //function to play soda
-function playSoda() {
+/*function playSoda() {
   console.log('soda wooooo');
   if (!soda1.isPlaying()) {
     soda1.play();
@@ -514,10 +512,23 @@ function playSoda() {
     soda1.pause();
     playingSoda == false;
   }
-  if (playingSoda == false) {
-    soda.hide();
+  if (playingSoda == true) {
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
   }
-}
+}*/
 
 //function to play lamento
 function playLam() {
@@ -527,6 +538,22 @@ function playLam() {
     playingLamento = true;
   } else {
     lamento.pause();
+  }
+  if(playingLamento == true){
+    soda1.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
   }
 }
 
@@ -538,6 +565,22 @@ function playMil() {
     playingMilHoras = true;
   } else {
     milhoras.pause();
+  }
+  if(playingMilHoras == true){
+    soda1.pause();
+    lamento.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
   }
 }
 
@@ -551,6 +594,22 @@ function playbeCareful() {
   } else {
     beCareful.pause();
   }
+  if(playingBeCareful == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
+  }
 }
 
 //function to play No Stress
@@ -562,6 +621,22 @@ function playnoStress() {
   } else {
     noStress.pause();
   }
+  if(playingNoStress == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
+  }
 }
 
 //function to play 1er Gaou
@@ -572,6 +647,22 @@ function playgaou() {
     playingGaou = true;
   } else {
     gaou.pause();
+  }
+  if(playingGaou == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
   }
 }
 
@@ -585,6 +676,22 @@ function playSky() {
   } else {
     sky.pause();
   }
+  if(playingSky == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
+  }
 }
 
 //function to play mawlaya
@@ -596,6 +703,22 @@ function playmawlaya() {
   } else {
     mawlaya.pause();
   }
+  if(playingMawlaya == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
+  }
 }
 
 //function to play ddaeng
@@ -606,6 +729,22 @@ function playddaeng() {
     playingDdaeng = true;
   } else {
     ddaeng.pause();
+  }
+  if(playingDdaeng == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
   }
 }
 
@@ -620,6 +759,22 @@ function playExes() {
   } else {
     exes.pause();
   }
+  if(playingExes == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
+  }
 }
 
 //function to play Smoke
@@ -631,6 +786,22 @@ function playSmoke() {
   } else {
     smoke.pause();
   }
+  if(playingSmoke == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
+  }
 }
 
 //function to play Nereyda
@@ -641,6 +812,22 @@ function playNereyda() {
     playingNereyda = true;
   } else {
     nereyda.pause();
+  }
+  if(playingNereyda == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+    vrille.pause();
   }
 }
 
@@ -654,6 +841,22 @@ function playbettyBoop() {
   } else {
     bettyBoop.pause();
   }
+  if(playingBettyBoop == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    nyPense.pause();
+    vrille.pause();
+  }
 }
 
 //function to play vrille
@@ -665,6 +868,22 @@ function playVrille() {
   } else {
     vrille.pause();
   }
+  if(playingVrille == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    nyPense.pause();
+  }
 }
 
 //function to play N'y Pense
@@ -675,6 +894,22 @@ function playnyPense() {
     plyingNyPense = true;
   } else {
     nyPense.pause();
+  }
+  if(playingNyPense == true){
+    soda1.pause();
+    lamento.pause();
+    milhoras.pause();
+    beCareful.pause();
+    noStress.pause();
+    gaou.pause();
+    exes.pause();
+    nereyda.pause();
+    smoke.pause();
+    sky.pause();
+    mawlaya.pause();
+    ddaeng.pause();
+    bettyBoop.pause();
+    vrille.pause();
   }
 }
 
@@ -697,6 +932,7 @@ function draw() {
   image(asia, 625, 100, 120, 100);
   image(europe, 800, 100, 110, 110);
 
+  //somethings going on here.............
   //waveform of song playing
   let waveform = fft.waveform();
   noFill();
@@ -737,13 +973,33 @@ function draw() {
   }
   pop();
 
-
-  recLabel.update();
+  //setting up statements to play songs
+  spinRec.update();
   if (playingSoda == true) {
-    recLabel.renderLabel(soda);
+    spinRec.renderLabel(soda);
   } else if (playingLamento == true) {
-    recLabel.renderLabel(enanitos);
-  }
+    spinRec.renderLabel(enanitos);
+  } else if (playingMilHoras == true) {
+    spinRec.renderLabel(milhoras);
+  } else if (playingExes == true) {
+    spinRec.renderLabel(exes);
+  }  else if (playingNereyda == true) {
+    spinRec.renderLabel(nereyda);
+  } else if (playingSmoke == true) {
+    spinRec.renderLabel(smoke);
+  } else if (playingSky == true) {
+    spinRec.renderLabel(sky);
+  } else if (playingMawlaya == true) {
+    spinRec.renderLabel(mawlaya);
+  } else if (playingDdaeng == true) {
+    spinRec.renderLabel(ddaeng);
+  } else if (playingBeCareful == true) {
+    spinRec.renderLabel(beCareful);
+  } else if (playingNoStress == true) {
+    spinRec.renderLabel(noStress);
+  } else if (playingGaou == true) {
+    spinRec.renderLabel(gaou);
+  } 
 
   //rotating album cover record player thingy
   // if(playingSoda == true){
@@ -754,33 +1010,68 @@ function draw() {
   //   lamentorec.update();
   //   lamentorec.renderLabel(lamento);   
   // }
+  
+  allSongs.update();
+  if (sodabut.mousePressed == true) {
+    allSongs.renderSongs(soda1);
+    console.log('soda wooooo');
+    //soda1.play();
+  } //else if (playingLamento == true) {
+    //console.log('lamento yassss');
+    //lamento.play();
+    //soda1.pause();
+ // }
 }
 
-class Record {
+//THIS IS WHERE WE ARE STUCK
+  class Songs {
 
-  constructor() {
-    this.xpos = 0;
-    this.ypos = 0;
-    this.rot = 0.0;
-    this.pic;
+    constructor() {
+      this.music;
+    }
+
+    //ESPECIALLY HERE
+    //if one song is playing, nothing else can be playing at the same time
+    update() {
+
+
+
+    }
+
+
+    renderSongs(SoundFile) {
+      
+      this.music = SoundFile;
+      this.music.play();
+    }
+
   }
 
-  update() {
-    //rotate
-    push();
-    translate(280, 480);
-    rotate(-this.rot * 4.0);
-    this.rot += .01;
+  class Record {
 
-  }
+    constructor() {
+      this.xpos = 0;
+      this.ypos = 0;
+      this.rot = 0.0;
+      this.pic;
+    }
 
-  renderLabel(labelImage) {
-    noTint();
-    this.pic = labelImage;
-    imageMode(CENTER);
-    image(this.pic, this.xpos, this.ypos, 250, 250);
-    pop();
-  }
+    update() {
+      //rotate
+      push();
+      translate(280, 480);
+      rotate(-this.rot * 4.0);
+      this.rot += .01;
+
+    }
+
+    renderLabel(labelImage) {
+      noTint();
+      this.pic = labelImage;
+      imageMode(CENTER);
+      image(this.pic, this.xpos, this.ypos, 250, 250);
+      pop();
+    }
   /*
     renderSoda(){
       image(soda, this.xpos, this.ypos, 250, 250);
