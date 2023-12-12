@@ -8,11 +8,6 @@
    p5.filter buttons (lowpass, highpass, band pass)
 
 
-THINGS WE NEED HELP WITH (Office Hrs):
-- download remix functions; working question mark
-*/
-
-
 //testing something - DIDNT WERKKKKKKK
 let sodarec, lamentorec;
 
@@ -115,18 +110,18 @@ function setup() {
   }
 
  //record and save functions
- recordRemix = new p5.SoundRecorder();
+ /*recordRemix = new p5.SoundRecorder();
  saveRemix = new p5.SoundFile();
  recordRemix.setInput(songs[i]);
  recordDownload = createButton('Record Remix');
  recordDownload.position(450, 600);
  stopRecord = createButton('Stop Record & Save');
- stopRecord.position(820, 600);
+ stopRecord.position(820, 600);*/
 
 
  //to make the background darker
  //total time in sec
- songsDuration = songs[i].duration();
+ //songsDuration = songs[i].duration();
 
 
  //objects for spinning record class
@@ -167,7 +162,20 @@ function setup() {
  sabut = createButton("SouthAm")
  sabut.position(300, 220);
  sabut.mousePressed(saPlaylist)
+ 
+ /*if (sabut.mousePressed) {
 
+   //positioning all south america buttons
+    songButtons[0].position(220,300)
+    songButtons[1].position(500,300)
+    songButtons[2].position(750,300)
+
+    //hiding all the other buttons
+    for (let i = 3; i < allSongs; i++) {
+      songButtons[i].position(-100, -100);
+   } 
+
+ }*/
 
  //africa buttons
  afbut = createButton("Africa")
@@ -331,7 +339,7 @@ noTint();
 
  //amt of delay applied
  amtD = delaySl.value() / 100;
- delay.drywet(amt);
+ delay.drywet(amtD);
 
 
  //progress line for current song
